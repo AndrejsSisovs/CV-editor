@@ -1,0 +1,54 @@
+﻿@model CV_creator.Models.WorkExperience
+
+@{
+    ViewData["Title"] = "AddWorkExperience";
+}
+
+<h1>AddWorkExperience</h1>
+
+<h4>WorkExperience</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddWorkExperience" asp-controller="WorkExperience" method="post">
+            <input type="hidden" asp-for="BasicInformationId" value="@Model.BasicInformationId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PositionHeld" class="control-label"></label>
+                <input asp-for="PositionHeld" class="form-control" />
+                <span asp-validation-for="PositionHeld" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmploymentType" class="control-label"></label>
+                <input asp-for="EmploymentType" class="form-control" />
+                <span asp-validation-for="EmploymentType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartTime" class="control-label"></label>
+                <input asp-for="StartTime" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndTime" class="control-label"></label>
+                <input asp-for="EndTime" class="form-control" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Details" asp-controller="CVs" asp-route-id="@Model.BasicInformationId" class="btn btn-secondary">Back to Details</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

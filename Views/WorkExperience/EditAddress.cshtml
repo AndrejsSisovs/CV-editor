@@ -1,0 +1,41 @@
+﻿@model WorkExperienceWithSkills
+
+<h1>Edit Address</h1>
+
+<form asp-action="EditAddress" method="post">
+    <input type="hidden" asp-for="NewAddress.Id" />
+    <input type="hidden" asp-for="WorkExperience.Id" />
+
+    <div class="form-group">
+        <label for="Country">Country</label>
+        <input asp-for="NewAddress.Country" class="form-control" />
+        <span asp-validation-for="NewAddress.Country" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="City">City</label>
+        <input asp-for="NewAddress.City" class="form-control" />
+        <span asp-validation-for="NewAddress.City" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="PostalCode">Postal Code</label>
+        <input asp-for="NewAddress.PostalCode" class="form-control" />
+        <span asp-validation-for="NewAddress.PostalCode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Street">Street</label>
+        <input asp-for="NewAddress.Street" class="form-control" />
+        <span asp-validation-for="NewAddress.Street" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="HouseNumber">House Number</label>
+        <input asp-for="NewAddress.HouseNumber" class="form-control" />
+        <span asp-validation-for="NewAddress.HouseNumber" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Details" asp-route-id="@Model.WorkExperience.Id" class="btn btn-secondary">Cancel</a>
+</form>

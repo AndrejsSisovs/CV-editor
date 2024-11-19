@@ -1,0 +1,42 @@
+﻿@model CV_creator.Models.Education
+
+@{
+    ViewData["Title"] = "Address Details for Education";
+}
+
+<h1>Address Details for Education</h1>
+
+<div>
+    <h3>@Model.InstitutionName</h3>
+    <p>@Model.FacultyName</p>
+    <p>@Model.FieldOfStudy</p>
+    <p>@Model.EducationLevel</p>
+    <p>@Model.Status</p>
+    <p>Start: @Model.StartTime?.ToString("yyyy-MM-dd")</p>
+    <p>End: @Model.EndTime?.ToString("yyyy-MM-dd")</p>
+</div>
+
+<h4>Address</h4>
+
+@if (Model.InstitutionAddress != null)
+{
+    <div>
+        <p>Country: @Model.InstitutionAddress.Country</p>
+        <p>City: @Model.InstitutionAddress.City</p>
+        <p>Street: @Model.InstitutionAddress.Street</p>
+        <p>House Number: @Model.InstitutionAddress.HouseNumber</p>
+        <p>Postal Code: @Model.InstitutionAddress.PostalCode</p>
+
+        <a asp-action="EditAddress" asp-route-id="@Model.InstitutionAddress.Id" class="btn btn-warning">Edit Address</a>
+        <form asp-action="DeleteAddress" asp-controller="Address" method="post" style="display:inline;">
+            <input type="hidden" name="addressId" value="@Model.InstitutionAddress.Id" />
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+    </div>
+}
+else
+{
+    <p>No address available for this education.</p>
+    <a asp-action="AddAddress" asp-route-educationId="@Model.Id" class="btn btn-primary">Add Address</a>
+}
+<a asp-action="Details" asp-controller="CVs" asp-route-id="@Model.BasicInformationId" class="btn btn-secondary">Back to List</a>
