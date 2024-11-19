@@ -1,0 +1,22 @@
+﻿@model CV_creator.Models.WorkExperienceWithSkills
+
+<h1>Edit Skill</h1>
+
+<form asp-action="EditSkill" method="post">
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <input type="text" id="Description" name="NewSkill.Description" value="@Model.NewSkill.Description" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Type">Type</label>
+        <input type="text" id="Type" name="NewSkill.Type" value="@Model.NewSkill.Type" class="form-control" />
+    </div>
+
+    <input type="hidden" name="NewSkill.Id" value="@Model.NewSkill.Id" />
+    <input type="hidden" name="WorkExperience.Id" value="@Model.WorkExperience.Id" />
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+
+<a asp-action="Details" asp-route-id="@Model.WorkExperience.Id" class="btn btn-secondary">Back to Details</a>

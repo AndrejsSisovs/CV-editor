@@ -1,0 +1,48 @@
+﻿@model CV_creator.Models.Address
+
+@{
+    ViewData["Title"] = "Edit Address";
+}
+
+<h1>Edit Address</h1>
+
+<form asp-action="EditAddress" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" name="BasicInformationId" value="@Model.BasicInformationId" />
+    <input type="hidden" asp-for="EducationId" />
+
+    <div class="form-group">
+        <label for="Country">Country</label>
+        <input type="text" asp-for="Country" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="City">City</label>
+        <input type="text" asp-for="City" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Street">Street</label>
+        <input type="text" asp-for="Street" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="HouseNumber">House Number</label>
+        <input type="text" asp-for="HouseNumber" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="PostalCode">Postal Code</label>
+        <input type="text" asp-for="PostalCode" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    @if (Model.BasicInformationId != null)
+    {
+        <a asp-action="Details" asp-controller="CVs" asp-route-id="@Model.BasicInformationId" class="btn btn-secondary">Cancel</a>
+    }
+    else if (Model.EducationId != null)
+    {
+        <a asp-action="AddressDetailsOfEducation" asp-route-educationId="@Model.EducationId" class="btn btn-secondary">Cancel</a>
+    }
+</form>

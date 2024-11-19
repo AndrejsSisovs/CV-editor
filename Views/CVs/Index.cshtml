@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CV_creator.Models.BasicInformation>
+
+@{
+    ViewData["Title"] = "CV List";
+}
+
+<h1>CV List</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New CV</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cv in Model)
+        {
+            <tr>
+                <td>@cv.FirstName</td>
+                <td>@cv.LastName</td>
+                <td>@cv.Email</td>
+                <td>@cv.PhoneNumber</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@cv.Id" class="btn btn-info">View</a>
+                    <a asp-action="Edit" asp-route-id="@cv.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@cv.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

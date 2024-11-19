@@ -1,0 +1,95 @@
+﻿@model CV_creator.Models.BasicInformation
+
+@{
+    ViewData["Title"] = "CV Details";
+}
+
+<h1>CV Details</h1>
+
+<div>
+    <h4>Basic Information</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">First Name</dt>
+        <dd class="col-sm-10">@Model.FirstName</dd>
+
+        <dt class="col-sm-2">Last Name</dt>
+        <dd class="col-sm-10">@Model.LastName</dd>
+
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+
+        <dt class="col-sm-2">Phone Number</dt>
+        <dd class="col-sm-10">@Model.PhoneNumber</dd>
+
+        <dt class="col-sm-2">Birth Date</dt>
+        <dd class="col-sm-10">@Model.BirthDate.ToShortDateString()</dd>
+    </dl>
+
+    <h4>Address</h4>
+
+    @if (Model.ResidenceAddress != null)
+    {
+        <div>
+            <p>Country: @Model.ResidenceAddress.Country</p>
+            <p>City: @Model.ResidenceAddress.City</p>
+            <p>Street: @Model.ResidenceAddress.Street</p>
+            <p>House Number: @Model.ResidenceAddress.HouseNumber</p>
+            <p>Postal Code: @Model.ResidenceAddress.PostalCode</p>
+
+            <a asp-action="EditAddress" asp-controller="Address" asp-route-id="@Model.ResidenceAddress.Id" class="btn btn-warning">Edit Address</a>
+            <form asp-action="DeleteAddress" asp-controller="Address" method="post" style="display:inline;">
+                <input type="hidden" name="addressId" value="@Model.ResidenceAddress.Id" />
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+            
+        </div>
+    }
+    else
+    {
+        <p>No address available for this education.</p>
+        <a asp-action="AddAddress" asp-controller="Address" asp-route-basicInformationId="@Model.Id" class="btn btn-primary">Add Address</a>
+    }
+</div>
+
+<div>
+    <h4>Education</h4>
+
+    <a asp-controller="Education" asp-action="AddEducation" asp-route-cvId="@Model.Id" class="btn btn-primary mb-3">Add Education</a>
+
+    <ul>
+        @foreach (var edu in Model.Educations)
+        {
+            <li>
+                @edu.InstitutionName - @edu.FieldOfStudy (@edu.Status)
+                <a asp-action="AddressDetailsOfEducation" asp-controller="Address" asp-route-educationId="@edu.Id" class="btn btn-info btn-sm ml-2">View and edit education address</a>
+                <a asp-action="Edit" asp-controller="Education" asp-route-id="@edu.Id" class="btn btn-warning btn-sm ml-2">Edit</a>
+                <a asp-action="Delete" asp-controller="Education" asp-route-id="@edu.Id" class="btn btn-danger btn-sm ml-2">Delete</a>
+            </li>
+        }
+    </ul>
+</div>
+
+
+<div>
+    <h4>Work Experience</h4>
+
+    <a asp-controller="WorkExperience" asp-action="AddWorkExperience" asp-route-cvId="@Model.Id" class="btn btn-primary mb-3">Add Work Experience</a>
+
+    <ul>
+        @foreach (var job in Model.Jobs)
+        {
+            <li>
+                @job.Title - @job.PositionHeld (@job.EmploymentType)
+                
+                <a asp-action="Details" asp-controller="WorkExperience" asp-route-id="@job.Id" class="btn btn-info btn-sm ml-2">View Details</a>
+                <a asp-action="Edit" asp-controller="WorkExperience" asp-route-id="@job.Id" class="btn btn-warning btn-sm ml-2">Edit</a>
+                <a asp-action="Delete" asp-controller="WorkExperience" asp-route-id="@job.Id" class="btn btn-danger btn-sm ml-2">Delete</a>
+            </li>
+        }
+    </ul>
+</div>
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</p>

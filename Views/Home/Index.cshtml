@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container text-center">
+    <h1>Welcome to the CV Creator</h1>
+    <p>Manage and create your personal data easily!</p>
+
+    <div class="container text-center">
+        <button class="btn btn-primary btn-lg" onclick="location.href='@Url.Action("Index", "CVs")'">
+            List of CVs
+        </button>
+        <br><br>
+
+        <button class="btn btn-success btn-lg" onclick="location.href='@Url.Action("Create", "CVs")'">
+            Create New CV
+        </button>
+    </div>
+</div>

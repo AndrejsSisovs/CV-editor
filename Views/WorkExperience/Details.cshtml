@@ -1,0 +1,118 @@
+﻿@model WorkExperienceWithSkills
+
+<h1>Work Experience Details</h1>
+
+<div>
+    <h3>@Model.WorkExperience.Title - @Model.WorkExperience.PositionHeld</h3>
+    <p>@Model.WorkExperience.EmploymentType</p>
+    <p>Start: @Model.WorkExperience.StartTime?.ToString("yyyy-MM-dd")</p>
+    <p>End: @Model.WorkExperience.EndTime?.ToString("yyyy-MM-dd")</p>
+</div>
+
+<h4>Work addresses</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var address in Model.Address)
+        {
+            <tr>
+                <td>@address.Street</td>
+                <td>@address.City</td>
+                <td>@address.Country</td>
+                <td>
+                    <a asp-action="EditAddress" asp-route-id="@address.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <form asp-action="DeleteAddress" method="post" style="display:inline;">
+                        <input type="hidden" name="JobId" value="@address.Id" />
+                        <input type="hidden" name="workExperienceId" value="@Model.WorkExperience.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Add New Work Address</h4>
+<form asp-action="AddAddress" method="post">
+    <input type="hidden" name="JobId" value="@Model.WorkExperience.Id" />
+
+    <div class="form-group">
+        <label for="Country">Country</label>
+        <input type="text" id="Country" name="Country" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="City">City</label>
+        <input type="text" id="City" name="City" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="PostalCode">Postal Code</label>
+        <input type="text" id="PostalCode" name="PostalCode" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Street">Street</label>
+        <input type="text" id="Street" name="Street" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="HouseNumber">House Number</label>
+        <input type="text" id="HouseNumber" name="HouseNumber" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Address</button>
+</form>
+
+
+<h4>Obtained Skills</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var skill in Model.Skills)
+        {
+            <tr>
+                <td>@skill.Description</td>
+                <td>@skill.Type</td>
+                <td>
+                    <a asp-action="EditSkill" asp-route-id="@skill.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <form asp-action="DeleteSkill" method="post" style="display:inline;">
+                        <input type="hidden" name="skillId" value="@skill.Id" />
+                        <input type="hidden" name="workExperienceId" value="@Model.WorkExperience.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Add New Skill</h4>
+<form asp-action="AddSkill" method="post">
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <input type="text" id="Description" name="NewSkill.Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Type">Type</label>
+        <input type="text" id="Type" name="NewSkill.Type" class="form-control" />
+    </div>
+    <input type="hidden" name="WorkExperience.Id" value="@Model.WorkExperience.Id" />
+    <button type="submit" class="btn btn-primary">Add Skill</button>
+</form>
+
+<div>
+    <a asp-action="Details" asp-controller="CVs" asp-route-id="@Model.WorkExperience.BasicInformationId" class="btn btn-secondary">Back to Details</a>
+</div>
